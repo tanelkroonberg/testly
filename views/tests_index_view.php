@@ -1,5 +1,5 @@
 <h2 class="form-signin-heading">Testid</h2>
-<p><a class="btn btn-large btn-primary" href="<?=BASE_URL?>tests/add">Lisa uus test</a></p>
+<p><a id="add_new_test" class="btn btn-large btn-primary" href="#">Lisa uus test</a></p>
 <table id="tests-table" class="table table-bordered table-striped">
 	<thead>
 	<tr>
@@ -19,7 +19,7 @@
 	</thead>
 	<tbody>
 	<? if (! empty ($tests)): foreach ($tests as $test): ?>
-		<tr id="test<?=['test_id'] ?>">
+		<tr id="test<?=$test['test_id']?>">
 			<td>
 				<?=$test['name']?>
 			</td>
@@ -27,19 +27,29 @@
 				<?=$test['username']?>
 			</td>
 			<td>
-				<?=$test['created']?>
+				<?=substr($test['created'], 0, 10)?>
 			</td>
 			<td>
-				<?="Vaata"?>
-				<a href="<?=BASE_URL?>tests/view/<?=$test['test_id']?>"><i
+				<?if(!empty($status)&&$status=='teacher'):?>
+				<a href="<?=BASE_URL?>tests/edit/<?=$test['test_id']?>">Vaata<i
 						class="icon-pencil"></i></a>
-				<a href="<?= BASE_URL ?>tests/remove/<?=$test['test_id']?>"
-				   onclick="if (!confirm('Oled kindel?'))return false; remove_tournament_ajax
-					   (<?=$test['test_id']?>); return false">Kustuta <i class="icon-trash"></i></a>
+				<? endif?>
+				<a href="#"
+				   onclick="if (!confirm('Oled kindel?')) return false;
+					   remove_test_ajax(<?=$test['test_id']?>);return false
+					   ">Kustuta <i class="icon-trash"></i></a>
 			</td>
-
+<!-- remove_test_ajax(<?=$test['test_id']?>);return false-->
 		</tr>
 	<? endforeach; endif ?>
 	</tbody>
 </table>
 <div hidden=""></div>
+<link rel="stylesheet" type="text/css" href="<?=ASSETS_URL?>css/jquery.confirm.css" />
+
+<div id="page" style="display: none">
+
+	<div class="item">y
+		<div class="delete">x</div>
+	</div>
+</div>

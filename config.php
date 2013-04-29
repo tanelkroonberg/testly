@@ -6,4 +6,5 @@ define('DATABASE_USERNAME', 'root');
 define('DATABASE_PASSWORD', '');
 define('DATABASE_DATABASE', 'testly');
 define('BASE_URL', '/testly/');
+define('ASSETS_URL', '/testly/assets/');
 

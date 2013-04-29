@@ -5,6 +5,25 @@ mysql_select_db(DATABASE_DATABASE) or db_error_out();
 mysql_query("SET NAMES 'utf8'");
 mysql_query("SET CHARACTER SET utf8");
 
+
+function q($sql, &$query_pointer = NULL, $debug = FALSE)
+{
+	if ($debug) {
+		print "<pre>$sql</pre>";
+	}
+
+	$query_pointer = mysql_query($sql) or db_error_out($sql);
+	switch (substr($sql, 0, 4)) {
+		case 'SELE':
+			return mysql_num_rows($query_pointer);
+		case 'INSE':
+			return mysql_insert_id();
+		default:
+			return mysql_affected_rows();
+	}
+
+}
+
 function get_all($sql)
 {
 	$q = mysql_query($sql) or db_error_out($sql);
@@ -24,7 +43,6 @@ function get_one($sql, $debug = FALSE)
 		die($sql);
 	}
 	$result = mysql_fetch_row($q);
-	var_dump($result);
 	return is_array($result) && count($result) > 0 ? $result[0] : NULL;
 }
 

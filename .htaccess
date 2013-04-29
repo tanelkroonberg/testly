@@ -1,6 +1,7 @@
 # Turn on URL rewriting
 RewriteEngine On
 
+RewriteRule ^assets/.*$ - [PT]
 # Installation directory
 RewriteBase /testly/
 
@@ -11,7 +12,7 @@ RewriteBase /testly/
 </Files>
 
 # Protect application and system files from being viewed
-RewriteRule ^(?:classes)\b.* index.php/$0 [L]
+RewriteRule ^(?:classes|controllers|views)\b.* index.php/$0 [L]
 
 
 # Allow any files or directories that exist to be displayed directly
@@ -21,7 +22,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Rewrite all other URLs to index.php/URL
 RewriteRule .* index.php/$0 [PT]
 
+
 # Enable <?= ?>
 php_value short_open_tag 1
-
-# php_value include_path  '/var/www/tournament/'

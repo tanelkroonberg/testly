@@ -12,14 +12,26 @@
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/normalize.css">
-	<link rel="stylesheet" href="assets/css/main.css">
-
-	<script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
+	<link rel="stylesheet" href="<?=ASSETS_URL?>css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="<?ASSETS_URL?>css/jquery.confirm.css" />
+	<script src="<?=ASSETS_URL?>js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="<?=ASSETS_URL?>js/vendor/jquery-1.9.1.min.js"><\/script>')
+	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+	<script src="<?=ASSETS_URL?>js/plugins.js"></script>
+	<script src="<?=ASSETS_URL?>js/main.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Cuprum&subset=latin' rel='stylesheet' type='text/css'>
+	<script>BASE_URL = '<?=BASE_URL?>'</script>
+	<?if (! empty($this->scripts)) : ?>
+		<? foreach ($this->scripts as $script) : ?>
+			<script src="<?=ASSETS_URL ?>js/<?= $script ?>"></script>
+		<? endforeach ?>
+	<? endif?>
 	<style>
 		html, body{
 			height: 100%;
-			background: url('<?= BASE_URL?>assets/img/bg.png');
+			background: url('<?=ASSETS_URL?>img/bg.png');
 
 		}
 		body {
@@ -41,13 +53,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="<?= BASE_URL ?>tournaments">EMÜ turniirirakendus</a>
+			<a class="brand" href="<?= BASE_URL ?>tests">Testid</a>
 
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li class="active"><a href="<?= BASE_URL ?>tournaments">Home</a></li>
+					<li class="active"><a href="<?= BASE_URL ?>tests">Home</a></li>
 					<li><a href="#about">About</a></li>
-					<li><a href="<?= BASE_URL ?>auth/logout">Logout</a></li>
+					<li><a href="<?= BASE_URL ?>auth/logout">Logi välja</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -70,10 +82,7 @@
 <![endif]-->
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/main.js"></script>
+
 
 </body>
 </html>

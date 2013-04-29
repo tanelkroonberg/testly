@@ -17,11 +17,9 @@ class auth
 			$user_id = get_one("SELECT user_id FROM user WHERE username='$username' AND password='$password'");
 			if (! empty($user_id)) {
 				$_SESSION['user_id'] = $user_id;
-				var_dump($user_id);
 				$request->redirect('tests');
 			}
 			$_errors[] = "Vale kasutajanimi või parool.";
-			var_dump($user_id);
 		}
 		require 'views/auth_view.php';
 
