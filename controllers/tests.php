@@ -1,32 +1,31 @@
 <?php
 
 class tests {
-
-	public $requires_auth = TRUE;
-	public $scripts = NULL;
-
-	function index()
-	{
-		//add tests.js to be included in view
+	public $requires_auth = true;
+	function index(){
 		$this->scripts[] = 'tests.js';
 		global $request;
 		global $_user;
 		$tests = get_all("SELECT * FROM test NATURAL JOIN user WHERE test.deleted=0");
 		$id = $_SESSION['user_id'];
-		$status = get_one("SELECT status FROM user where user_id='$id'");
-		var_dump($status);
-
+		$status = get_one("SELECT status FROM user WHERE user_id='$id'");
 		require 'views/master_view.php';
 
-
 	}
-	function remove()
-	{
+	function remove(){
 		global $request;
 		$id = $request->params[0];
 		$result = q("UPDATE test SET deleted=1 WHERE test_id='$id'");
 		require 'views/master_view.php';
-
+	}
+	function edit(){
+		global $request;
+		$this->scripts[] = 'tests_add_edit.js';
+		$id = $request->params[0];
+		$test = get_all("SELECT * FROM test WHERE test_id='$id'");
+		$test = $test[0];
+		$questions = get_all("SELECT * FROM question NATURAL JOIN question_type WHERE test_id='$id'");
+		require 'views/master_view.php';
 	}
 	function add(){
 		ob_end_clean();
@@ -39,27 +38,5 @@ class tests {
 		else{
 			exit('Testi nimi puudub!');
 		}
-	}
-	function edit()
-	{
-		global $request;
-		$this->scripts[] = 'addedittests.js';
-		$id = $request->params[0];
-		$tests = get_all("SELECT * FROM test WHERE test_id = '$id'");
-		$questions = get_all("SELECT * FROM question WHERE test_id = '$id'");
-		$tests = $tests[0];
-
-		require 'views/master_view.php';
-	}
-	function remove_question(){
-
-	}
-	function view_question(){
-		global $request;
-		$this->scripts[] = 'addedittests.js';
-		$id = $request->params[0];
-		$questions = get_all("SELECT * FROM question WHERE test_id = '$id'");
-
-		require 'views/tests_view_question_view.php';
 	}
 }
